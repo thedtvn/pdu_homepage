@@ -14,7 +14,6 @@ export default class Login extends RouteType {
     @Route("/login", "all")
     public async login(req: Request, res: Response) {
         // do something
-        console.log("login");
         res.send("login");
     }
 
