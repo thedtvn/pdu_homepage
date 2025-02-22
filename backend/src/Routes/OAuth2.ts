@@ -1,20 +1,19 @@
 import { Middleware, Route, default as RouteType } from "../Classes/Routes";
 import { NextFunction, Request, Response } from "express";
 
-export default class Login extends RouteType {
+export default class OAuth2 extends RouteType {
 
-    public path = "/auth";
+    public path = "/oauth2";
 
     @Middleware()
     public async middleware(req: Request, res: Response, next: NextFunction) {
-        // do something
+        
         next();
     }
 
-    @Route("/login", "all")
+    @Route("/", "all")
     public async login(req: Request, res: Response) {
-        // do something
-        console.log("login");
+        
         res.send("login");
     }
 

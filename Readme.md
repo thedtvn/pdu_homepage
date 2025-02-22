@@ -9,6 +9,8 @@
         - `Routes`: thư mục chứa các route
         - `Typing`: thư mục chứa các service
         - `Utils`: thư mục chứa các hàm tiện ích
+        - `Databases`: thư mục chứa các file liên quan đến database
+            - `Models`: thư mục chứa các model của database
 - `frontend`: thư mục chứa mã nguồn của frontend
     - `src`
         - `components`: thư mục chứa các component

@@ -3,6 +3,7 @@ import { createServer } from "http";
 import fs from "fs";
 import { join } from "path";
 import Route from "./Routes";
+import Connect from "../Databases/Connecter";
 
 export default class App {
     public app = express();
@@ -34,6 +35,7 @@ export default class App {
     public async init() {
         this.app.use(express.json());
         await this.importRoutes();
+        await Connect(process.env.MONGO_URL);
         this.httpServer.listen(process.env.PORT, () => {
             console.log(`[System] Server started at port ${process.env.PORT}!`);
         });
