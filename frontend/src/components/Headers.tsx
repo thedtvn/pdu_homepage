@@ -72,7 +72,7 @@ export default function Headers(props: { links: LinkObj[] }) {
                 </Flex>
 
             </Flex>
-            <Flex bg={"blue.500"} display={{ md: "flex", base: "none" }}>
+            <Flex pl={5} pr={5} bg={"blue.500"} display={{ md: "flex", base: "none" }}>
                 {links.map((link, _) => {
                     if (link.children) {
                         const [isOpen, setIsOpen] = useState(false);
