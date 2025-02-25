@@ -1,10 +1,11 @@
 import { RouterProvider, createBrowserRouter } from "react-router";
-import { useMemo } from "react";
 import Home from "./pages/Home";
 import DefaultLayout from "./components/DefaultLayout";
 import RoutingError from "./components/RoutingError";
 import { ChakraProvider, ColorModeScript } from "@chakra-ui/react";
 import theme from "./utils/Themes";
+import "./styles/index.css";
+import Login from "./pages/Login";
 
 const router = createBrowserRouter([
   {
@@ -17,6 +18,10 @@ const router = createBrowserRouter([
         element: <Home />
       }
     ]
+  },
+  {
+    path: "/login",
+    element: <Login />
   }
 ]);
 
