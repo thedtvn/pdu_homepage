@@ -3,7 +3,7 @@ import { Request, Response } from "express";
 import jose from 'jose'
 import userModel from "../Databases/Models/User";
 
-export default class OAuth2 extends RouteType {
+export default class Auth extends RouteType {
 
     public path = "/auth";
 
@@ -45,7 +45,7 @@ export default class OAuth2 extends RouteType {
 
         if (user.password !== password) return res.status(400).json({ error: "Invalid username or password" });
 
-        const token = await this.sign({ userId: user.userId, role: user.role });
+        const token = await Auth.sign({ userId: user.userId, role: user.role });
 
         return res.json({ token });
     }
