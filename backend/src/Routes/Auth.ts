@@ -34,7 +34,7 @@ export default class Auth extends RouteType {
         }
     }
 
-    @Route("/", "post")
+    @Route("/login", "post")
     public async login(req: Request, res: Response) {
         const { username, password, role } = req.body;
         if (!username || !password) return res.status(400).json({ error: "Missing username or password" });
