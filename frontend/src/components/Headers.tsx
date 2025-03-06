@@ -20,7 +20,7 @@ export default function Headers(props: { links: LinkObj[] }) {
 
     return (
         <>
-            <Flex alignItems={"center"} bg="linear-gradient(90deg, rgb(82, 82, 209) 33%, rgb(0, 180, 215) 100%)" color="white" p={4} position="relative">
+            <Flex alignItems={"center"} bg="linear-gradient(180deg, #0000EC 33%, rgb(0, 102, 255) 100%)" color="white" p={4} position="relative">
                 <Link to={"/"}>
                     <Flex>
                         <Flex h={61} pl={1}>
@@ -29,7 +29,7 @@ export default function Headers(props: { links: LinkObj[] }) {
                         <Flex display={{ md: "flex", base: "none" }}>
                             <Flex w={"2px"} bg={"red"} m={1} borderRadius={100}></Flex>
                             <Flex flexDir={"column"} justifyContent={"center"} pl={2}>
-                                <Text as='i' fontSize={"xl"} color={"red.500"} fontWeight={"bold"}>
+                                <Text as='i' fontSize={"xl"} color={"red.400"} fontWeight={"bold"}>
                                     TRƯỜNG ĐẠI HỌC PHƯƠNG ĐÔNG
                                 </Text>
                                 <Text as='i' fontSize={"sm"}>
