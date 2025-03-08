@@ -4,14 +4,14 @@ import { NextFunction, Request, Response } from "express";
 import fs from "fs";
 import filesModel from "../Databases/Models/Files";
 import { File } from "formidable";
-import postModel from "../Databases/Models/Post";
+import postModel, { tagModel } from "../Databases/Models/Post";
 
 export default class Post extends RouteType {
 
     public path = "/post";
 
-    @Route("/getPost", "get")
-    public async getPost(req: Request, res: Response) {
+    @Route("/getPosts", "get")
+    public async getPosts(req: Request, res: Response) {
         let { tag, page, q } = req.query;
         let query = {};
         if (tag) query = { tags: { $elemMatch: { tag: String(tag) } } };
@@ -27,6 +27,43 @@ export default class Post extends RouteType {
             content: post.content,
             tags: post.tags.map(tag => tag.tag),
         })));
+    }
+
+    @Route("/getPost/:postId", "get")
+    public async getPostById(req: Request, res: Response) {
+        const { postId } = req.params;
+        const post = await postModel.findOne({ postId });
+        if (!post) return res.status(404).json({ error: "Post not found" });
+        return res.json({
+            postId: post.postId,
+            title: post.title,
+            content: post.content,
+            tags: post.tags.map(tag => tag.tag),
+        });
+    }
+
+    @Route("/delPost", "post")
+    public async delPost(req: Request, res: Response) {
+        if (req.auth?.role !== "admin") return res.status(401).json({ error: "Unauthorized" });
+        const { postId } = req.body;
+        if (!postId) return res.status(400).json({ error: "No postId" });
+        await postModel.deleteOne({ postId });
+        return res.json({ postId });
+    }
+
+    @Route("/getTags", "get")
+    public async getTags(req: Request, res: Response) {
+        const tags = await tagModel.find();
+        return res.json(tags);
+    }
+
+    @Route("/delTag", "post")
+    public async delTag(req: Request, res: Response) {
+        if (req.auth?.role !== "admin") return res.status(401).json({ error: "Unauthorized" });
+        const { tag } = req.body;
+        if (!tag) return res.status(400).json({ error: "No tag" });
+        await tagModel.deleteOne({ tag });
+        return res.json({ tag });
     }
 
     @Route("/new", "post")
