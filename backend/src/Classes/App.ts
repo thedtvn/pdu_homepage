@@ -2,6 +2,7 @@ import express from "express";
 import { createServer } from "http";
 import fs from "fs";
 import { join } from "path";
+import formidable from "express-formidable";
 import Route from "./Routes";
 import Connect from "../Databases/Connecter";
 
@@ -34,7 +35,9 @@ export default class App {
 
     public async init() {
         this.app.use(express.json());
+        this.app.use(formidable());
         await this.importRoutes();
+        this.app.use('/cdn/', express.static('cdn'));
         await Connect(process.env.MONGO_URL);
         this.httpServer.listen(process.env.PORT, () => {
             console.log(`[System] Server started at port ${process.env.PORT}!`);
