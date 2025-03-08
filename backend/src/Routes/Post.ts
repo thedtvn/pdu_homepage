@@ -62,6 +62,7 @@ export default class Post extends RouteType {
         if (req.auth?.role !== "admin") return res.status(401).json({ error: "Unauthorized" });
         const { tag } = req.body;
         if (!tag) return res.status(400).json({ error: "No tag" });
+        if (!tag.deleteable) return res.status(400).json({ error: "Tag not deleteable" });
         await tagModel.deleteOne({ tag });
         return res.json({ tag });
     }

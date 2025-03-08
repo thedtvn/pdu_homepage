@@ -3,6 +3,7 @@ import { model, Schema } from "mongoose";
 const tag = new Schema({
     tag: { type: String, required: true, unique: true },
     slug: { type: String, required: true, unique: true },
+    deleteable: { type: Boolean, default: true },
 });
 
 const post = new Schema({
