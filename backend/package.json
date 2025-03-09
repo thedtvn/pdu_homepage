@@ -7,14 +7,15 @@
   "dependencies": {
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
-    "express-formidable": "^1.2.0",
     "jose": "^6.0.8",
     "mongoose": "^8.10.1",
+    "multer": "^1.4.5-lts.1",
     "node-cache": "^5.1.2",
     "tsx": "^4.19.3"
   },
   "devDependencies": {
     "@types/express": "^5.0.0",
+    "@types/multer": "^1.4.12",
     "@types/node": "^22.13.4"
   }
 }

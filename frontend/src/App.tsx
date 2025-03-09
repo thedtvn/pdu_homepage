@@ -6,6 +6,7 @@ import { ChakraProvider, ColorModeScript } from "@chakra-ui/react";
 import theme from "./utils/Themes";
 import "./styles/index.css";
 import Login from "./pages/Login";
+import Posts from "./pages/Posts";
 
 const router = createBrowserRouter([
   {
@@ -16,6 +17,10 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Home />
+      },
+      {
+        path: "/post/:slug",
+        element: <Posts />
       }
     ]
   },

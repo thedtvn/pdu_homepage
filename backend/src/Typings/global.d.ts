@@ -11,19 +11,7 @@ declare global {
     namespace Express {
         interface Request {
             auth: JwtToken | null;
-            fields: { [key: string]: string };
-            files: { [key: string]: File };
         }
-    }
-
-    interface File {
-        size: number;
-        path: string;
-        name: string;
-        type: string;
-        hash: string | null;
-        lastModifiedDate: Date;
-        _writeStream: WriteStream;
     }
 
     interface String {

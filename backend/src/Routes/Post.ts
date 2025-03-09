@@ -3,8 +3,7 @@ import { Middleware, Route, default as RouteType } from "../Classes/Routes";
 import { NextFunction, Request, Response } from "express";
 import fs from "fs";
 import filesModel from "../Databases/Models/Files";
-import { File } from "formidable";
-import postModel, { tagModel } from "../Databases/Models/Post";
+import postModel from "../Databases/Models/Post";
 
 export default class Post extends RouteType {
 
@@ -14,7 +13,7 @@ export default class Post extends RouteType {
     public async getPosts(req: Request, res: Response) {
         let { tag, page, q } = req.query;
         let query = {};
-        if (tag) query = { tags: { $elemMatch: { tag: String(tag) } } };
+        if (tag) query = { tags: { $in: [tag] } };
         if (q) query = { $or: [{ title: { $regex: q, $options: "i" } }, { content: { $regex: q, $options: "i" } }] };
         const pageInt = Number.isNaN(Number(page)) ? 1 : Number(page);
         const posts = await postModel.find(query)
@@ -25,20 +24,20 @@ export default class Post extends RouteType {
             postId: post.postId,
             title: post.title,
             content: post.content,
-            tags: post.tags.map(tag => tag.tag),
+            tags: post.tags,
         })));
     }
 
-    @Route("/getPost/:postId", "get")
+    @Route("/getPost/:slug", "get")
     public async getPostById(req: Request, res: Response) {
-        const { postId } = req.params;
-        const post = await postModel.findOne({ postId });
+        const { slug } = req.params;
+        const post = await postModel.findOne({ slug });
         if (!post) return res.status(404).json({ error: "Post not found" });
         return res.json({
             postId: post.postId,
             title: post.title,
             content: post.content,
-            tags: post.tags.map(tag => tag.tag),
+            tags: post.tags,
         });
     }
 
@@ -53,28 +52,21 @@ export default class Post extends RouteType {
 
     @Route("/getTags", "get")
     public async getTags(req: Request, res: Response) {
-        const tags = await tagModel.find();
-        return res.json(tags);
-    }
-
-    @Route("/delTag", "post")
-    public async delTag(req: Request, res: Response) {
-        if (req.auth?.role !== "admin") return res.status(401).json({ error: "Unauthorized" });
-        const { tag } = req.body;
-        if (!tag) return res.status(400).json({ error: "No tag" });
-        if (!tag.deleteable) return res.status(400).json({ error: "Tag not deleteable" });
-        await tagModel.deleteOne({ tag });
-        return res.json({ tag });
+        const tags = await postModel.distinct("tags");
+        const uniqueTags = [...new Set(tags)];
+        return res.json(uniqueTags);
     }
 
     @Route("/new", "post")
     public async newPost(req: Request, res: Response) {
-        if (req.auth?.role !== "admin") return res.status(401).json({ error: "Unauthorized" });
-        const { title, content, fileIds, tags } = req.body;
+        // if (req.auth?.role !== "admin") return res.status(401).json({ error: "Unauthorized" });
+        let { title, content, fileIds, tags } = req.body;
         if (!title || !content) return res.status(400).json({ error: "Missing fields" });
+        if (!fileIds) fileIds = [];
+        if (!tags) tags = [];
         const slug = title.toSlug();
         const postId = randomUUID();
-        const post = await postModel.create({ postId, title, content, files: fileIds, tags: tags.map(tag => ({ tag, slug: tag.toSlug() })) });
+        await postModel.create({ postId, title, content, slug, files: fileIds, tags });
         return res.json({ postId, slug });
     }
 
@@ -97,9 +89,9 @@ export default class Post extends RouteType {
     public async fileUpload(req: Request, res: Response) {
         if (req.auth?.role !== "admin") return res.status(401).json({ error: "Unauthorized" });
         if (!fs.existsSync("./cdn")) fs.mkdirSync("./cdn");
+        const { postId } = req.body;
+        if (!postId) return res.status(400).json({ error: "No postId" });
         if (!req.files) return res.status(400).json({ error: "No files" });
-        if (!req.fields?.postId) return res.status(400).json({ error: "No postId" });
-        const postId = req.fields.postId;
         const fileIds = [];
         for (let file of Object.values(req.files)) {
             const fileId = randomUUID();
