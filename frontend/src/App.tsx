@@ -6,7 +6,7 @@ import { ChakraProvider, ColorModeScript } from "@chakra-ui/react";
 import theme from "./utils/Themes";
 import "./styles/index.css";
 import Login from "./pages/Login";
-import Posts from "./pages/Posts";
+import Posts from "./pages/Post";
 
 const router = createBrowserRouter([
   {

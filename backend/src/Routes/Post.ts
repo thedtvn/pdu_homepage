@@ -23,8 +23,8 @@ export default class Post extends RouteType {
         return res.json(posts.map(post => ({
             postId: post.postId,
             title: post.title,
-            content: post.content,
             tags: post.tags,
+            date: post.created.getTime()
         })));
     }
 
@@ -38,6 +38,7 @@ export default class Post extends RouteType {
             title: post.title,
             content: post.content,
             tags: post.tags,
+            date: post.created.getTime(),
         });
     }
 
