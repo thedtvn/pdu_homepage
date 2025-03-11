@@ -1,12 +1,7 @@
 import { Box, Flex, Text, useColorModeValue } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
-import Markdown from 'react-markdown';
-import rehypeHighlight from 'rehype-highlight';
-import remarkGfm from 'remark-gfm';
-import rehypeRaw from 'rehype-raw';
-import "highlight.js/styles/github.css";
-import "./../styles/github-markdown.css";
+import MarkdownRender from "../components/MarkdownRender";
 
 interface Post {
     postId: string;
@@ -41,12 +36,10 @@ export default function Posts() {
         return (
             <>
                 <Flex flexDir={"column"} p={{ md: 5, base: 3 }} w="100%">
-                    <Text>{time.getDate()}/{time.getMonth() + 1}/{time.getFullYear()}</Text>
+                    <Text>{time.getHours()}:{time.getMinutes()} {time.getDate()}-{time.getMonth() + 1}-{time.getFullYear()}</Text>
                     <Text fontSize={"xx-large"} m={0} p={0}>{post.title}</Text>
                     <Box w="100%" mb={7} mt={3} bg={useColorModeValue("black", "white")} h={1} borderRadius={12}></Box>
-                    <Box w="100%" className="markdown-body">
-                        <Markdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeRaw, rehypeHighlight]}>{post.content}</Markdown>
-                    </Box>
+                    <MarkdownRender>{post.content}</MarkdownRender>
                     <Box w="100%" mb={3} mt={7} bg={useColorModeValue("black", "white")} h={1} borderRadius={12}></Box>
                     <Flex alignItems={"center"}>
                         <Text fontSize={"large"}>Tags:</Text>
