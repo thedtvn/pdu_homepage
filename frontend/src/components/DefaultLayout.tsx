@@ -1,7 +1,7 @@
 import { Outlet } from "react-router";
 import Headers, { LinkObj } from "./Headers";
 import Footer from "./Footers";
-import { Box } from "@ch
+import { Box } from "@chakra-ui/react"
 
 export default function DefaultLayout() {
     let links: LinkObj[] = [
