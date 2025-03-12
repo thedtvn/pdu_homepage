@@ -1,1 +1,3 @@
-// Add helper functions here
+export function getToken() {
+  return localStorage.getItem('token');
+}

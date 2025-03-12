@@ -1,7 +1,7 @@
 import { Outlet } from "react-router";
 import Headers, { LinkObj } from "./Headers";
 import Footer from "./Footers";
-import { Box } from "@chakra-ui/react";
+import { Box } from "@ch
 
 export default function DefaultLayout() {
     let links: LinkObj[] = [
@@ -19,9 +19,19 @@ export default function DefaultLayout() {
     return (
         <>
             <Headers links={links} />
-            <Box minH={"80vh"}>
-                <Outlet />
-            </Box>
+            <Box bg={"linear-gradient(90deg, rgb(103, 103, 255) 33%, rgba(0,212,255,1) 100%)"}>
+                <Box
+                    bgImage={"url(/assets/trong_dong_dong_son.svg)"}
+                    bgPosition={"center"}
+                    bgRepeat={"no-repeat"}
+                    bgSize={"inherit"}
+                    bgAttachment={"fixed"}
+                    minH={"80vh"}
+                    className="main-content"
+                >
+                    <Outlet />
+                </Box>
+            </Box >
             <Footer />
         </>
     )

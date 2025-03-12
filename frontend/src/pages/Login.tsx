@@ -46,6 +46,32 @@ export default function Login() {
             if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/g.test(usernameElm.current?.value || "")) return setErr("Email không hợp lệ");
         }
         if (!passwordElm.current?.value) return setErr("Mật khẩu không được để trống");
+
+        fetch("/api/auth/login", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                username: usernameElm.current?.value,
+                password: passwordElm.current?.value,
+                role: userType
+            })
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.error) return setErr(data.error);
+                localStorage.setItem("token", data.token);
+                if (data.role === "sv") {
+                    window.location.href = "/student";
+                } else if (data.role === "gv") {
+                    window.location.href = "/teacher";
+                } else {
+                    window.location.href = "/admin";
+                }
+            })
+            .catch(err => setErr(err.message));
+
     }
 
     return (

@@ -1,7 +1,7 @@
 
-import { Flex, Box, Image, Text, Drawer, DrawerOverlay, DrawerContent, DrawerCloseButton, DrawerHeader, DrawerBody, useDisclosure, IconButton, useColorModeValue, useColorMode, Button } from '@chakra-ui/react';
+import { Flex, Box, Image, Text, Drawer, DrawerOverlay, DrawerContent, DrawerCloseButton, DrawerHeader, DrawerBody, useDisclosure, IconButton, Button } from '@chakra-ui/react';
 import { safePolygon, useFloating, useHover, useInteractions } from '@floating-ui/react';
-import { ChevronDownIcon, ChevronRightIcon, CloseIcon, HamburgerIcon, MoonIcon, SunIcon } from "@chakra-ui/icons";
+import { ChevronDownIcon, ChevronRightIcon, CloseIcon, HamburgerIcon } from "@chakra-ui/icons";
 import React, { useState } from 'react';
 import { Link } from 'react-router';
 
@@ -15,8 +15,6 @@ export default function Headers(props: { links: LinkObj[] }) {
     const links = props.links;
 
     const sidebar = useDisclosure();
-
-    const { colorMode, toggleColorMode } = useColorMode();
 
     return (
         <>
@@ -58,17 +56,6 @@ export default function Headers(props: { links: LinkObj[] }) {
                         background={"rgba(142, 142, 142, 0.26)"}>
                         <Link to={"/login"}>Đăng nhập</Link>
                     </Button>
-                    <IconButton
-                        _hover={{
-                            bg: "blue.400",
-                        }}
-                        size="sm"
-                        color={"white"}
-                        background={"rgba(142, 142, 142, 0.26)"}
-                        icon={colorMode == "light" ? <SunIcon /> : <MoonIcon />}
-                        aria-label={'Mode'}
-                        onClick={toggleColorMode}
-                    />
                 </Flex>
 
             </Flex>
@@ -140,26 +127,24 @@ export default function Headers(props: { links: LinkObj[] }) {
             <Drawer isOpen={sidebar.isOpen} placement="right" size={"full"} onClose={sidebar.onClose}>
                 <DrawerOverlay />
 
-                <DrawerContent background={useColorModeValue("rgba(255, 255, 255, 0.71)", "rgba(28,28,30,.75)")} backdropFilter={"blur(10px)"}>
+                <DrawerContent background={"rgba(255, 255, 255, 0.71)"} backdropFilter={"blur(10px)"}>
                     <DrawerCloseButton />
 
                     <DrawerHeader display={"flex"}>
                         Menu
-                        <IconButton ml={4} size="sm" display={"flex"} icon={colorMode == "light" ? <SunIcon /> : <MoonIcon />} aria-label={'Mode'} onClick={toggleColorMode} />
                     </DrawerHeader>
 
                     <DrawerBody paddingInlineEnd={4} paddingInlineStart={4}>
                         {links.map((link, _) => {
                             if (link.children) {
                                 const menu = useDisclosure();
-                                const line = useColorModeValue("1px solid rgb(32, 32, 32)", "1px solid #ffffff");
                                 return (
                                     <React.Fragment key={link.name}>
                                         <Flex p={2} width={"100%"} onClick={menu.isOpen ? menu.onClose : menu.onOpen} justifyContent={"space-between"} fontSize={"large"}>
                                             <Flex>{link.name}</Flex>
                                             {menu.isOpen ? <ChevronDownIcon boxSize={6} /> : <ChevronRightIcon boxSize={6} />}
                                         </Flex>
-                                        <Box borderLeft={line} display={menu.isOpen ? "block" : "none"} fontSize={"large"} ml={3} pl={1}>
+                                        <Box borderLeft={"1px solid rgb(32, 32, 32)"} display={menu.isOpen ? "block" : "none"} fontSize={"large"} ml={3} pl={1}>
                                             {link.children.map((child, _) => (
                                                 <Link to={child.url || '#'} key={child.name}>
                                                     <Flex p={1}>{child.name}</Flex>

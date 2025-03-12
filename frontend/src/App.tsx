@@ -4,7 +4,7 @@ import DefaultLayout from "./components/DefaultLayout";
 import RoutingError from "./components/RoutingError";
 import { ChakraProvider, ColorModeScript } from "@chakra-ui/react";
 import theme from "./utils/Themes";
-import "./styles/index.css";
+import "./styles/root.css";
 import Login from "./pages/Login";
 import Posts from "./pages/Post";
 
