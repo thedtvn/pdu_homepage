@@ -4,6 +4,7 @@ import { safePolygon, useFloating, useHover, useInteractions } from '@floating-u
 import { ChevronDownIcon, ChevronRightIcon, CloseIcon, HamburgerIcon } from "@chakra-ui/icons";
 import React, { useState } from 'react';
 import { Link } from 'react-router';
+import { useUser } from './UserProvider';
 
 export interface LinkObj {
     name: string;
@@ -15,6 +16,8 @@ export default function Headers(props: { links: LinkObj[] }) {
     const links = props.links;
 
     const sidebar = useDisclosure();
+
+    const user = useUser();
 
     return (
         <>
@@ -47,15 +50,23 @@ export default function Headers(props: { links: LinkObj[] }) {
                     onClick={sidebar.isOpen ? sidebar.onClose : sidebar.onOpen}
                 />
                 <Flex display={{ md: 'flex', base: "none" }} position="absolute" right={5}>
-                    <Button _hover={{
+                    {
+                        user ? <Link to={
+                            user.role === "admin" ? "/admin" :
+                                user.role === "sv" ? "/" :
+                                    user.role === "gv" ? "/" : "/"
+                        }>
+                            Xin chào, {user.fullname} {console.log(user)}
+                        </Link> : <Button _hover={{
                             bg: "blue.400",
                         }}
-                        size="sm"
-                        color={"white"}
-                        mr={2}
-                        background={"rgba(142, 142, 142, 0.26)"}>
-                        <Link to={"/login"}>Đăng nhập</Link>
-                    </Button>
+                            size="sm"
+                            color={"white"}
+                            mr={2}
+                            background={"rgba(142, 142, 142, 0.26)"}>
+                            <Link to={"/login"}>Đăng nhập</Link>
+                        </Button>
+                    }
                 </Flex>
 
             </Flex>
@@ -95,7 +106,7 @@ export default function Headers(props: { links: LinkObj[] }) {
                                 }} m={1} p={1} borderRadius={4} fontSize={"large"} color={"white"}>{link.name}</Flex>
                                 {isOpen && (
                                     <>
-                                        <Box borderBottomRadius={10} mt={1} bg="rgba(213, 213, 213, 0.54)" backdropFilter={"blur(2px)"}  border={"2px solid"} borderTop={"none"}  p={1} ref={refs.setFloating} style={floatingStyles}>
+                                        <Box borderBottomRadius={10} mt={1} bg="rgba(213, 213, 213, 0.54)" backdropFilter={"blur(2px)"} border={"2px solid"} borderTop={"none"} p={1} ref={refs.setFloating} style={floatingStyles}>
                                             {link.children.map((child, _) => (
                                                 <Link to={child.url || '#'} key={child.name}>
                                                     <Flex p={1} borderRadius={4} _hover={{

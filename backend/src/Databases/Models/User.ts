@@ -2,6 +2,7 @@ import { model, Schema } from "mongoose";
 
 const user = new Schema({
     userId: { type: String, required: true, unique: true },
+    fullname: { type: String, required: true },
     username: { type: String, required: true, unique: true },
     password: { type: String, required: true },
     role: { type: String, enum: ["sv", "gv", "admin"], required: true }

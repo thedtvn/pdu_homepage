@@ -77,7 +77,7 @@ export default function Login() {
     return (
         <>
             <Flex bg={bgColor} w={"100vw"} h={"100vh"} color={"white"}>
-                <Flex w={"100%"} bgImage={"url(/assets/trong_dong_dong_son.svg)"} bgPosition={"center"} bgRepeat={"no-repeat"} bgSize={"cover"} justifyContent={"center"} alignItems={"center"}>
+                <Flex w={"100%"} bgImage={"url(/assets/td_login.svg)"} bgPosition={"center"} bgRepeat={"no-repeat"} bgSize={"cover"} justifyContent={"center"} alignItems={"center"}>
                     <Flex
                         flexDir="column"
                         background="rgba(60, 60, 60, 0.61)"
