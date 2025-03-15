@@ -91,7 +91,7 @@ export default function Headers(props: { links: LinkObj[] }) {
                 <Flex h="100%">
                     {
                         user ? menu() :
-                            <>
+                            <Flex justifyContent={"center"} alignItems={"center"} mr={2}>
                                 <Link to={"/login"}>
                                     <Button
                                         _hover={{
@@ -99,13 +99,13 @@ export default function Headers(props: { links: LinkObj[] }) {
                                         }}
                                         size="sm"
                                         color={"white"}
-                                        mr={2}
+                                        
                                         background={"rgba(126, 126, 126, 0.66)"}>
 
                                         Đăng nhập
                                     </Button>
                                 </Link>
-                            </>
+                            </Flex>
                     }
                     <IconButton
                         ml={1}

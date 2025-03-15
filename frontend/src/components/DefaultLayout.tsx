@@ -22,7 +22,7 @@ export default function DefaultLayout() {
             <UserProvider>
                 <Headers links={links} />
                 <Box bg={"#F2E2B1"}
-                    bgImage={"url(/assets/td_home.svg)"}
+                    bgImage={"url(/assets/td_home.png)"}
                     bgPosition={"center"}
                     bgRepeat={"no-repeat"}
                     bgSize={"cover"}

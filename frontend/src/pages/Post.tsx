@@ -15,6 +15,7 @@ export default function Posts() {
 
 
     const [post, setPost] = useState<Post | null>(null);
+    const [isNotFound, setIsNotFound] = useState(false);
     const { slug } = useParams();
     const navigate = useNavigate();
 
@@ -22,7 +23,7 @@ export default function Posts() {
 
         fetch("/api/post/getPost/" + slug)
             .then(res => {
-                if (!res.ok) return navigate("/");
+                if (!res.ok) return setIsNotFound(true);
                 return res.json();
             })
             .then(data => setPost(data));
@@ -57,11 +58,17 @@ export default function Posts() {
     return (
         <>
             <Flex>
-                {!post ? <>
+                {isNotFound ? (
                     <Flex align="center" justify="center" w="100%" h="100vh">
-                        <Text>Loading Post</Text>
+                        <Text fontSize={"5xl"}>Post not found</Text>
                     </Flex>
-                </> : postBody()}
+                ) : !post ? (
+                    <Flex align="center" justify="center" w="100%" h="100vh">
+                        <Text fontSize={"5xl"}>Loading Post</Text>
+                    </Flex>
+                ) : (
+                    postBody()
+                )}
             </Flex>
         </>
     );
