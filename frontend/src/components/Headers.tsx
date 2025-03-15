@@ -3,7 +3,6 @@ import { Flex, Box, Image, Text, Drawer, DrawerOverlay, DrawerContent, DrawerClo
 import { safePolygon, useFloating, useHover, useInteractions } from '@floating-ui/react';
 import { ChevronDownIcon, ChevronRightIcon, CloseIcon, HamburgerIcon } from "@chakra-ui/icons";
 import { FaUser } from 'react-icons/fa';
-import { IoMdLogIn } from "react-icons/io";
 import React, { useState } from 'react';
 import { Link } from 'react-router';
 import { useUser } from './UserProvider';
