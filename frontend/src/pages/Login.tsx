@@ -1,5 +1,6 @@
-import { Box, Button, Flex, Input, SimpleGrid, Text } from "@chakra-ui/react";
+import { Box, Button, Flex, IconButton, Input, SimpleGrid, Text } from "@chakra-ui/react";
 import { useRef, useState } from "react"
+import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 
 export default function Login() {
     const bgColor = "linear-gradient(90deg, rgb(103, 103, 255) 33%, rgba(0,212,255,1) 100%)";
@@ -7,6 +8,8 @@ export default function Login() {
     const passwordElm = useRef<HTMLInputElement>(null);
     const usernameElm = useRef<HTMLInputElement>(null);
     const errBox = useRef<HTMLDivElement>(null);
+
+    const [showPassword, setShowPassword] = useState<boolean>(false);
 
     const [userType, setUserTypeProxy] = useState<"sv" | "gv">("sv");
 
@@ -100,8 +103,18 @@ export default function Login() {
                             </Text>
                             <Input ref={usernameElm} mt={2} />
                             <Text>Mật Khẩu</Text>
-                            <Input ref={passwordElm} mt={2} />
-                            
+                            <Flex mt={2} alignItems="center">
+                                <Input 
+                                    ref={passwordElm} 
+                                    
+                                    type={showPassword ? "text" : "password"} 
+                                />
+                                <IconButton  
+                                    ml={2}
+                                    onClick={() => setShowPassword(!showPassword)}
+                                    icon={showPassword ? <FaRegEyeSlash /> : <FaRegEye />}
+                                    aria-label="toggle password visibility"/>
+                            </Flex>
                         </Box>
                         <Flex ref={errBox} display={"none"} mt={2} borderRadius={5} justifyContent={"center"} p={1} bg={"red.600"}>
                             <Text fontSize={"small"} color="white">{err}</Text>

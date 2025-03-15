@@ -21,6 +21,11 @@ export default function Headers(props: { links: LinkObj[] }) {
 
     const user = useUser();
 
+    function logout() {
+        localStorage.removeItem("token");
+        window.location.reload();
+    }
+
     function menu() {
         if (!user) return;
 
@@ -52,6 +57,10 @@ export default function Headers(props: { links: LinkObj[] }) {
                                 ))
                             }
                         </MenuGroup>
+                        <MenuDivider borderColor={'black'} />
+                        <MenuItem onClick={logout}>
+                            Đăng xuất
+                        </MenuItem>
                     </MenuList>
                 </Menu>
             </>
