@@ -1,7 +1,9 @@
 
-import { Flex, Box, Image, Text, Drawer, DrawerOverlay, DrawerContent, DrawerCloseButton, DrawerHeader, DrawerBody, useDisclosure, IconButton, Button } from '@chakra-ui/react';
+import { Flex, Box, Image, Text, Drawer, DrawerOverlay, DrawerContent, DrawerCloseButton, DrawerHeader, DrawerBody, useDisclosure, IconButton, Button, Menu, MenuButton, MenuList, MenuGroup, MenuDivider, MenuItem } from '@chakra-ui/react';
 import { safePolygon, useFloating, useHover, useInteractions } from '@floating-ui/react';
 import { ChevronDownIcon, ChevronRightIcon, CloseIcon, HamburgerIcon } from "@chakra-ui/icons";
+import { FaUser } from 'react-icons/fa';
+import { IoMdLogIn } from "react-icons/io";
 import React, { useState } from 'react';
 import { Link } from 'react-router';
 import { useUser } from './UserProvider';
@@ -19,9 +21,46 @@ export default function Headers(props: { links: LinkObj[] }) {
 
     const user = useUser();
 
+    function menu() {
+        if (!user) return;
+
+        const MenuItems = {
+            admin: [
+                {
+                    name: "Quản lí bài viết",
+                    link: "/admin/post"
+                }
+            ],
+            gv: [],
+            sv: []
+        }
+
+        return (
+            <>
+                <Menu>
+                    <MenuButton as={IconButton} icon={<FaUser />}>
+                    </MenuButton>
+                    <MenuList color={"black"}>
+                        <Text textAlign={"center"} fontSize={"medium"} fontWeight={"bold"}>Xin chào, {user.fullname}</Text>
+                        <MenuDivider borderColor={'black'} />
+                        <MenuGroup>
+                            {
+                                MenuItems[user.role].map(x => (
+                                    <MenuItem >
+                                        {x.name}
+                                    </MenuItem>
+                                ))
+                            }
+                        </MenuGroup>
+                    </MenuList>
+                </Menu>
+            </>
+        )
+    }
+
     return (
         <>
-            <Flex alignItems={"center"} bg="linear-gradient(180deg, #0000EC 33%, rgb(0, 102, 255) 100%)" color="white" p={4} position="relative">
+            <Flex alignItems={"center"} justifyContent={"space-between"} bg="linear-gradient(180deg, #0000EC 33%, rgb(0, 102, 255) 100%)" color="white" p={4}>
                 <Link to={"/"}>
                     <Flex>
                         <Flex h={61} pl={1}>
@@ -40,36 +79,37 @@ export default function Headers(props: { links: LinkObj[] }) {
                         </Flex>
                     </Flex>
                 </Link>
-                <IconButton
-                    position="absolute"
-                    right={4}
-                    bg={"blue.300"}
-                    icon={sidebar.isOpen ? <CloseIcon /> : <HamburgerIcon />}
-                    aria-label={'Open Menu'}
-                    display={{ md: 'none' }}
-                    onClick={sidebar.isOpen ? sidebar.onClose : sidebar.onOpen}
-                />
-                <Flex display={{ md: 'flex', base: "none" }} position="absolute" right={5}>
+
+                <Flex h="100%">
                     {
-                        user ? <Link to={
-                            user.role === "admin" ? "/admin" :
-                                user.role === "sv" ? "/" :
-                                    user.role === "gv" ? "/" : "/"
-                        }>
-                            Xin chào, {user.fullname} {console.log(user)}
-                        </Link> : <Button _hover={{
-                            bg: "blue.400",
-                        }}
-                            size="sm"
-                            color={"white"}
-                            mr={2}
-                            background={"rgba(142, 142, 142, 0.26)"}>
-                            <Link to={"/login"}>Đăng nhập</Link>
-                        </Button>
+                        user ? menu() :
+                            <>
+                                <Link to={"/login"}>
+                                    <Button
+                                        _hover={{
+                                            bg: "blue.400",
+                                        }}
+                                        size="sm"
+                                        color={"white"}
+                                        mr={2}
+                                        background={"rgba(126, 126, 126, 0.66)"}>
+
+                                        Đăng nhập
+                                    </Button>
+                                </Link>
+                            </>
                     }
+                    <IconButton
+                        ml={1}
+                        bg={"blue.300"}
+                        icon={sidebar.isOpen ? <CloseIcon /> : <HamburgerIcon />}
+                        aria-label={'Open Menu'}
+                        display={{ md: 'none' }}
+                        onClick={sidebar.isOpen ? sidebar.onClose : sidebar.onOpen}
+                    />
                 </Flex>
 
-            </Flex>
+            </Flex >
             <Flex pl={5} pr={5} bg={"blue.500"} display={{ md: "flex", base: "none" }}>
                 {links.map((link, _) => {
                     if (link.children) {

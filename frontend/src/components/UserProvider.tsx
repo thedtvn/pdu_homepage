@@ -1,16 +1,16 @@
-import { createContext, useContext, useState, useEffect } from "react";
+import { createContext, useContext, useState, useEffect, ReactNode } from "react";
 import { getToken } from "../utils/Helper";
 
 export interface User {
     userId: string;
     fullname: string;
     username: string;
-    role: string;
+    role: "sv" | "gv" | "admin";
 }
 
-const UserContext = createContext<null | {user: User}>(null);
+const UserContext = createContext<{user: User | null}>({user: null});
 
-export const UserProvider = ({ children }) => {
+export const UserProvider = ({ children }: { children: ReactNode }) => {
     const [user, setUser] = useState<null | User>(null);
 
     useEffect(() => {
