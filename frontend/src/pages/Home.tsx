@@ -1,4 +1,4 @@
-import { Box, Button, Flex, Grid, Image, Text } from "@chakra-ui/react";
+import { Box, Button, Flex, Image, Text } from "@chakra-ui/react";
 import { useNavigate } from "react-router";
 import "./../styles/index.css";
 import Carousel from 'react-bootstrap/Carousel';
@@ -47,7 +47,7 @@ export default function Home() {
                     px={4}
                 >
                     {
-                        Array.from({ length: 10 }).map((_, index) => {
+                        Array.from({ length: 10 }).map(() => {
                             return (
                                 <Box
                                     h="30hv"
