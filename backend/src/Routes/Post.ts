@@ -54,13 +54,15 @@ export default class Post extends RouteType {
     @Route("/getTags", "get")
     public async getTags(req: Request, res: Response) {
         const tags = await postModel.distinct("tags");
+        const defualtTags = ["Tuyển Sinh", "Thông Báo", "Học Vụ", "Đào Tạo", "Nghiên Cứu", "Hợp Tác", "Tin Tức"];
+        tags.push(...defualtTags);
         const uniqueTags = [...new Set(tags)];
         return res.json(uniqueTags);
     }
 
     @Route("/new", "post")
     public async newPost(req: Request, res: Response) {
-        // if (req.auth?.role !== "admin") return res.status(401).json({ error: "Unauthorized" });
+        if (req.auth?.role !== "admin") return res.status(401).json({ error: "Unauthorized" });
         let { title, content, fileIds, tags } = req.body;
         if (!title || !content) return res.status(400).json({ error: "Missing fields" });
         if (!fileIds) fileIds = [];
@@ -94,16 +96,27 @@ export default class Post extends RouteType {
         if (!postId) return res.status(400).json({ error: "No postId" });
         if (!req.files) return res.status(400).json({ error: "No files" });
         const fileIds = [];
-        for (let file of Object.values(req.files)) {
+        for (let file of Object.values(req.files) as Express.Multer.File[]) {
             const fileId = randomUUID();
-            const fileExt = file.name.split(".").pop();
-            const fileName = file.name;
+            const fileName = file.originalname;
+            const fileExt = fileName.split(".").pop();
             const filePath = `${fileId}.${fileExt}`;
-            fs.renameSync(file.path, "./cdn/" + filePath);
+            fs.writeFileSync("./cdn/" + filePath, file.buffer);
             await filesModel.create({ postId, fileName, fileID: fileId, filePathName: filePath });
             fileIds.push({ fileId, fileName, filePath });
         }
         return res.json({ fileIds });
     }
 
+    @Route("/file_delete", "post")
+    public async fileDelete(req: Request, res: Response) {
+        if (req.auth?.role !== "admin") return res.status(401).json({ error: "Unauthorized" });
+        const { fileId } = req.body;
+        if (!fileId) return res.status(400).json({ error: "No fileId" });
+        const file = await filesModel.findOne({ fileID: fileId });
+        if (!file) return res.status(404).json({ error: "File not found" });
+        fs.unlinkSync(`./cdn/${file.filePathName}`);
+        await file.deleteOne();
+        return res.status(201).send();
+    }
 }

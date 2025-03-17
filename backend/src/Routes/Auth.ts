@@ -16,7 +16,7 @@ export default class Auth extends RouteType {
 
         const jwt = await new SignJWT(payload)
             .setProtectedHeader({ alg })
-            .setExpirationTime('1h')
+            .setExpirationTime('30d')
             .sign(secret)
 
         return jwt;

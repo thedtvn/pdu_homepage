@@ -1,0 +1,8 @@
+body {
+    background-color: #F2E2B1 !important;
+    background-image: url(/assets/td_home.png) !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+    background-size: cover !important;
+    background-attachment: fixed !important;
+}

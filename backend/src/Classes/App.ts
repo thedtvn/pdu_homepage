@@ -34,7 +34,7 @@ export default class App {
     }
 
     public async init() {
-        this.app.use(multer().array('files'));
+        this.app.use(multer().any());
         this.app.use(express.json());
         await this.importRoutes();
         this.app.use('/cdn/', express.static('cdn'));

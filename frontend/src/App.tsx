@@ -7,6 +7,9 @@ import theme from "./utils/Themes";
 import "./styles/root.css";
 import Login from "./pages/Login";
 import Posts from "./pages/Post";
+import AdminLayout from "./components/AdminLayout";
+import PostAdd from "./pages/Admin/PostAdd";
+import AdminIndex from "./pages/Admin/Index";
 
 const router = createBrowserRouter([
   {
@@ -21,6 +24,21 @@ const router = createBrowserRouter([
       {
         path: "/post/:slug",
         element: <Posts />
+      }
+    ]
+  },
+  {
+    path: "/admin",
+    element: <AdminLayout />,
+    errorElement: <RoutingError />,
+    children: [
+      {
+        path: "",
+        element: <AdminIndex />
+      },
+      {
+        path: "posts/add",
+        element: <PostAdd />
       }
     ]
   },

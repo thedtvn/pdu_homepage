@@ -4,7 +4,7 @@ import { Link } from 'react-router'
 export default function Footer() {
     return (
         <>
-            <Flex flexDir={"column"} borderTop="1px" p={4} bg="linear-gradient(90deg, rgb(82, 82, 209) 33%, rgb(0, 180, 215) 100%)">
+            <Flex flexDir={"column"} borderTop="1px" p={4} bg="#900808">
                 <Text fontSize="large" fontWeight="bold" color="white">
                     TRƯỜNG ĐẠI HỌC PHƯƠNG ĐÔNG
                 </Text>
