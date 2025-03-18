@@ -1,14 +1,15 @@
 import { Box, Flex, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router";
+import { useParams } from "react-router";
 import MarkdownRender from "../components/MarkdownRender";
 
-interface Post {
+export interface Post {
     postId: string;
     title: string;
     content?: string;
     tags: string[];
     date: number;
+    slug: string;
 }
 
 export default function Posts() {
@@ -17,7 +18,6 @@ export default function Posts() {
     const [post, setPost] = useState<Post | null>(null);
     const [isNotFound, setIsNotFound] = useState(false);
     const { slug } = useParams();
-    const navigate = useNavigate();
 
     useEffect(() => {
 

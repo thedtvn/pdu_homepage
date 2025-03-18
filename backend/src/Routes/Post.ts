@@ -16,16 +16,21 @@ export default class Post extends RouteType {
         if (tag) query = { tags: { $in: [tag] } };
         if (q) query = { $or: [{ title: { $regex: q, $options: "i" } }, { content: { $regex: q, $options: "i" } }] };
         const pageInt = Number.isNaN(Number(page)) ? 1 : Number(page);
-        const posts = await postModel.find(query)
+        const postsPage = await postModel.find(query)
             .sort({ createdAt: -1 })
             .skip((pageInt - 1) * 10)
             .limit(10);
-        return res.json(posts.map(post => ({
-            postId: post.postId,
-            title: post.title,
-            tags: post.tags,
-            date: post.created.getTime()
-        })));
+        const maxPage = await postModel.find(query).countDocuments();
+        return res.json({
+            maxPage: Math.ceil(maxPage / 10),
+            posts: postsPage.map(post => ({
+                postId: post.postId,
+                title: post.title,
+                tags: post.tags,
+                slug: post.slug,
+                date: post.created.getTime(),
+            })),
+        });
     }
 
     @Route("/getPost/:slug", "get")

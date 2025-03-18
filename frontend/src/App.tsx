@@ -8,6 +8,7 @@ import "./styles/root.css";
 import Login from "./pages/Login";
 import Posts from "./pages/Post";
 import AdminLayout from "./components/AdminLayout";
+import PostAdmin from "./pages/Admin/Post";
 import PostAdd from "./pages/Admin/PostAdd";
 import AdminIndex from "./pages/Admin/Index";
 
@@ -35,6 +36,10 @@ const router = createBrowserRouter([
       {
         path: "",
         element: <AdminIndex />
+      },
+      {
+        path: "posts",
+        element: <PostAdmin />
       },
       {
         path: "posts/add",
