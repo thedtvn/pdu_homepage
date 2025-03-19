@@ -10,6 +10,7 @@ export interface Post {
     tags: string[];
     date: number;
     slug: string;
+    files: { fileId: string; isDefault: boolean }[];
 }
 
 export default function Posts() {

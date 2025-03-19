@@ -30,7 +30,7 @@ export default function Posts() {
         })
             .then(res => res.json())
             .then(data => {
-                setPost(post.filter(post => post.postId !== postId));
+                setPost(post.filter(post => post.postId !== data.postId));
                 alert("Deleted");
             });
     }

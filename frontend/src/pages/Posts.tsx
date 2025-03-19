@@ -1,14 +1,12 @@
 import { useEffect, useState } from "react";
-import { Post } from "./../Post";
-import { Button, Flex, Text } from "@chakra-ui/react";
-import { Link, useNavigate } from "react-router";
+import { Post } from "./Post";
+import { Flex, Text, Image } from "@chakra-ui/react";
+import { Link } from "react-router";
 
 export default function Posts() {
-    const navigate = useNavigate();
     const [post, setPost] = useState<Post[]>([]);
     const pram = new URLSearchParams(location.search);
     const [page, setPage] = useState<number>(Number(pram.get("page")) || 1);
-    const [defaultImage, setDefaultImage] = useState<string | null>(null);
     const [maxPage, setMaxPage] = useState<number>(1);
 
     useEffect(() => {
@@ -42,8 +40,8 @@ export default function Posts() {
                         <Flex direction="column">
                             {
                                 post.files.find((file: { isDefault: any; }) => file.isDefault) ?
-                                    <img src={`/api/file/${post.files.find((file: { isDefault: any; }) => file.isDefault)?.fileId}`} alt={post.title} style={{ width: 100, height: 100 }} />
-                                    : <Text>No image</Text>
+                                    <Image src={`/api/file/${post.files.find((file: { isDefault: any; }) => file.isDefault)?.fileId}`} alt={post.title} style={{ width: 100, height: 100 }} />
+                                    : null
                             }
                         </Flex>
                     </Flex>
