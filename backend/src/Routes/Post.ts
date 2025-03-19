@@ -120,8 +120,8 @@ export default class Post extends RouteType {
         const { fileId } = req.body;
         if (!fileId) return res.status(400).json({ error: "No fileId" });
         const file = await filesModel.findOne({ fileID: fileId });
-        if (!file) return res.status(404).json({ error: "File not found" });
-        fs.unlinkSync(`./cdn/${file.filePathName}`);
+        if (!file) return res.status(404).json({ error: "File not found" });0
+        fs.unlink(`./cdn/${file.filePathName}`, () => {});
         await file.deleteOne();
         return res.status(201).send();
     }

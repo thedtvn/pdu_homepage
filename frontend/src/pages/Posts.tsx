@@ -39,8 +39,8 @@ export default function Posts() {
                         </Link>
                         <Flex direction="column">
                             {
-                                post.files.find((file: { isDefault: any; }) => file.isDefault) ?
-                                    <Image src={`/api/file/${post.files.find((file: { isDefault: any; }) => file.isDefault)?.fileId}`} alt={post.title} style={{ width: 100, height: 100 }} />
+                                post.files.find((file) => file.isDefault) ?
+                                    <Image src={`/cdn/${post.files.find((file) => file.isDefault)?.filePath}`} alt={post.title} style={{ width: 100, height: 100 }} />
                                     : null
                             }
                         </Flex>

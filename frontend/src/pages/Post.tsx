@@ -10,7 +10,7 @@ export interface Post {
     tags: string[];
     date: number;
     slug: string;
-    files: { fileId: string; isDefault: boolean }[];
+    files: { fileId: string; isDefault: boolean; filePath: string }[];
 }
 
 export default function Posts() {
@@ -47,7 +47,7 @@ export default function Posts() {
                         <Text fontSize={"large"}>Tags:</Text>
                         <Flex ml={2}>
                                 {post.tags.map(tag => (
-                                <Text key={tag} p={1} bg={"rgb(82, 82, 209)"} color={"white"} borderRadius={5}>{tag}</Text>
+                                <Text key={tag} p={1} ml={1} bg={"rgb(82, 82, 209)"} color={"white"} borderRadius={5}>{tag}</Text>
                             ))}
                         </Flex>
                     </Flex>
