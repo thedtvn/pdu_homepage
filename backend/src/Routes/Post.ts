@@ -28,6 +28,7 @@ export default class Post extends RouteType {
                 title: post.title,
                 tags: post.tags,
                 slug: post.slug,
+                files: post.files,
                 date: post.created.getTime(),
             })),
         });

@@ -6,12 +6,13 @@ import { ChakraProvider, ColorModeScript } from "@chakra-ui/react";
 import theme from "./utils/Themes";
 import "./styles/root.css";
 import Login from "./pages/Login";
-import Posts from "./pages/Post";
+import Post from "./pages/Post";
 import AdminLayout from "./components/AdminLayout";
 import PostAdmin from "./pages/Admin/Post";
 import PostAdd from "./pages/Admin/PostAdd";
 import AdminIndex from "./pages/Admin/Index";
 import PostEdit from "./pages/Admin/PostEdit";
+import Posts from "./pages/Posts";
 
 const router = createBrowserRouter([
   {
@@ -25,6 +26,10 @@ const router = createBrowserRouter([
       },
       {
         path: "/post/:slug",
+        element: <Post />
+      },
+      {
+        path: "/posts",
         element: <Posts />
       }
     ]
