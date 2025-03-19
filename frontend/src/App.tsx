@@ -11,6 +11,7 @@ import AdminLayout from "./components/AdminLayout";
 import PostAdmin from "./pages/Admin/Post";
 import PostAdd from "./pages/Admin/PostAdd";
 import AdminIndex from "./pages/Admin/Index";
+import PostEdit from "./pages/Admin/PostEdit";
 
 const router = createBrowserRouter([
   {
@@ -44,6 +45,10 @@ const router = createBrowserRouter([
       {
         path: "posts/add",
         element: <PostAdd />
+      },
+      {path: "posts/edit/:slug",
+        element: <PostEdit />
+
       }
     ]
   },

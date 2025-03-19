@@ -33,7 +33,7 @@ export default function Headers(props: { links: LinkObj[] }) {
             admin: [
                 {
                     name: "Quản lí bài viết",
-                    link: "/admin/post"
+                    link: "/admin/posts"
                 }
             ],
             gv: [],

@@ -43,6 +43,7 @@ export default class Post extends RouteType {
             title: post.title,
             content: post.content,
             tags: post.tags,
+            files: post.files,
             date: post.created.getTime(),
         });
     }
@@ -83,14 +84,13 @@ export default class Post extends RouteType {
         if (req.auth?.role !== "admin") return res.status(401).json({ error: "Unauthorized" });
         const { postId, title, content, fileIds } = req.body;
         if (!postId) return res.status(400).json({ error: "No postId" });
-        if (!title && !content && !fileIds) return res.status(400).json({ error: "Missing field" });
         const post = await postModel.findOne({ postId });
         if (!post) return res.status(404).json({ error: "Post not found" });
         if (title) post.title = title;
         if (content) post.content = content;
         if (fileIds) post.files = fileIds;
         await post.save();
-        return res.json({ postId });
+        return res.json({ postId, slug: post.slug });
     }
 
     @Route("/file_upload", "post")
