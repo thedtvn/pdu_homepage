@@ -3,14 +3,26 @@ import { useNavigate } from "react-router";
 import "./../styles/index.css";
 import Carousel from 'react-bootstrap/Carousel';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { useEffect, useState } from "react";
+import { Post } from "./Post";
 
 export default function Home() {
-
     const navigate = useNavigate();
+    const [posts, setPosts] = useState<Post[]>([]);
+
+    useEffect(() => {
+            const url = new URL("/api/post/getPosts", location.origin);
+            url.searchParams.append("page", "1");
+            fetch(url)
+                .then(res => res.json())
+                .then(data => {
+                    setPosts(data.posts);
+                });
+        }, []);
 
     const images = [
-        { url: "/assets/cu_nhan.jpg", postUrl: "/post/1" },
-        { url: "/assets/teacherrrr.jpg", postUrl: "/post/2" },
+        { url: "/assets/cu_nhan.jpg", postUrl: "#" },
+        { url: "/assets/teacherrrr.jpg", postUrl: "#" },
     ];
     // TODO: make Image slider
     return (
@@ -47,23 +59,30 @@ export default function Home() {
                     px={4}
                 >
                     {
-                        Array.from({ length: 10 }).map(() => {
+                        posts.slice(0,6).map((post, index) => {
                             return (
                                 <Box
-                                    h="30hv"
-                                    w=""
-                                    bg="gray.50"
+                                    key={index}
+                                    w={{ base: "100%", md: "30%" }}
                                     p={4}
-                                    dir="column"
+                                    bg="gray.100"
+                                    mb={4}
+                                    borderRadius={5}
+                                    onClick={() => navigate(`/post/${post.slug}`)}
                                 >
-                                    
+                                    <Text isTruncated>{post.title}</Text>
+                                    <Flex>Tags: {
+                                        post.tags.length ? post.tags.map(
+                                            tag => <Flex ml={2} key={tag} px={2} bg={"rgb(82, 82, 209)"} color={"white"} borderRadius={5}>{tag}</Flex>
+                                        ) : <Text ml={2}>No tags</Text>
+                                    }</Flex>
                                 </Box>
                             )
                         })
                     }
 
                 </Flex>
-                <Button mt={3} onClick={() => navigate("/news")}>Xem thêm Về Thông Tin Tuyển Sinh</Button>
+                <Button mt={3} onClick={() => navigate("/pages")}>Xem thêm Về Thông Tin Tuyển Sinh</Button>
             </Flex>
         </Flex>
     )
