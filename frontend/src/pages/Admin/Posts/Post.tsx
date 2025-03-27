@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Post } from "./../Post";
+import { Post } from "../../Post";
 import { Button, Flex, Text } from "@chakra-ui/react";
 import { Link, useNavigate } from "react-router";
 

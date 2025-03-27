@@ -1,14 +1,14 @@
 import { Box, Button, Flex, Input, Text, Image, IconButton, Checkbox } from "@chakra-ui/react";
 import { useEffect, useRef, useState } from "react";
 import { v4 as uuidv4 } from 'uuid';
-import MarkdownRender from "../../components/MarkdownRender";
+import MarkdownRender from "../../../components/MarkdownRender";
 import Editor from '@monaco-editor/react';
 // @ts-ignore
 import Files from 'react-files';
-import "./../../styles/postAdd.css";
+import "./../../../styles/postAdd.css";
 
 import CreatableSelect from 'react-select/creatable';
-import { getToken } from "../../utils/Helper";
+import { getToken } from "../../../utils/Helper";
 import { editor } from "monaco-editor";
 import { CloseIcon } from "@chakra-ui/icons";
 

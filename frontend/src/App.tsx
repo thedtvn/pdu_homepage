@@ -8,11 +8,12 @@ import "./styles/root.css";
 import Login from "./pages/Login";
 import Post from "./pages/Post";
 import AdminLayout from "./components/AdminLayout";
-import PostAdmin from "./pages/Admin/Post";
-import PostAdd from "./pages/Admin/PostAdd";
+import PostAdmin from "./pages/Admin/Posts/Post";
+import PostAdd from "./pages/Admin/Posts/PostAdd";
 import AdminIndex from "./pages/Admin/Index";
-import PostEdit from "./pages/Admin/PostEdit";
+import PostEdit from "./pages/Admin/Posts/PostEdit";
 import Posts from "./pages/Posts";
+import Apps from "./pages/Admin/Apps/Apps";
 
 const router = createBrowserRouter([
   {
@@ -51,9 +52,14 @@ const router = createBrowserRouter([
         path: "posts/add",
         element: <PostAdd />
       },
-      {path: "posts/edit/:slug",
+      {
+        path: "posts/edit/:slug",
         element: <PostEdit />
-
+      },
+      // apps
+      {
+        path: "apps",
+        element: <Apps />
       }
     ]
   },

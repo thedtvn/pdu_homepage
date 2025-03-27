@@ -1,12 +1,9 @@
 interface BaseJwtToken {
     userId: string;
-    role: "sv" | "gv" | "admin";
+    role: "sv" | "gv" | "admin" | "app";
+    appId?: string;
+    scope?: string[];
+    iss?: string;
 }
 
-interface AppJwtToken extends BaseJwtToken {
-    role: "app";
-    appId: string;
-    scope: string[];
-}
-
-type JwtToken = BaseJwtToken | AppJwtToken;
+type JwtToken = BaseJwtToken;

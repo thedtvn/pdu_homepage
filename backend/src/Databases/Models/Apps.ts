@@ -4,9 +4,7 @@ const apps = new Schema({
     appId: { type: String, required: true, unique: true },
     appName: { type: String, required: true },
     appSecret: { type: String, required: true },
-    appRedirectUri: [{ type: String }],
-    verify: { type: Boolean, default: false },
-    owner: { type: String, required: true }
+    appRedirectUri: [{ type: String }]
 });
 
 const appsModel = model('apps', apps);
