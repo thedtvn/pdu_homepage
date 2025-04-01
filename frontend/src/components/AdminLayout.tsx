@@ -13,6 +13,17 @@ export default function AdminLayout() {
                 { name: "Thêm bài viết", url: "/admin/posts/add" }
             ]
         },
+        {
+            name: "Quản lý người dùng",
+            children: [
+                { name: "Danh sách người dùng", url: "/admin/users" },
+                { name: "Thêm người dùng", url: "/admin/users/add" }
+            ]
+        },
+        {
+            name: "Quản lý ứng dụng",
+            url: "/admin/apps"
+        }
     ];
 
     return (

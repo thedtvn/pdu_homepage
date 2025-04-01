@@ -4,7 +4,7 @@ const apps = new Schema({
     appId: { type: String, required: true, unique: true },
     appName: { type: String, required: true },
     appSecret: { type: String, required: true },
-    appRedirectUri: [{ type: String }]
+    appRedirectUri: { type: String, required: true }
 });
 
 const appsModel = model('apps', apps);

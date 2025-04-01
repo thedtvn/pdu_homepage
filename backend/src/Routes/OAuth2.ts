@@ -97,7 +97,7 @@ export default class OAuth2 extends RouteType {
 
     @Route("/create_app", "post")
     public async createApp(req: Request, res: Response) {
-        if (req.auth.role != "admin") return res.status(401).json({ error: "Unauthorized" });
+        if (req.auth?.role !== "admin") return res.status(401).json({ error: "Unauthorized" });
         const { app_name, redirect_uri } = req.body;
         const app_id = randomBytes(16).toString("hex");
         const app_secret = randomBytes(32).toString("hex");
@@ -113,7 +113,7 @@ export default class OAuth2 extends RouteType {
 
     @Route("/delete_app", "post")
     public async deleteApp(req: Request, res: Response) {
-        if (req.auth.role != "admin") return res.status(401).json({ error: "Unauthorized" });
+        if (req.auth?.role != "admin") return res.status(401).json({ error: "Unauthorized" });
         const { app_id } = req.body;
         await appsModel.deleteOne({ appId: app_id });
         return res.json({});
@@ -121,7 +121,7 @@ export default class OAuth2 extends RouteType {
 
     @Route("/apps", "get")
     public async getApps(req: Request, res: Response) {
-        if (req.auth.role != "admin") return res.status(401).json({ error: "Unauthorized" });
+        if (req.auth?.role !== "admin") return res.status(401).json({ error: "Unauthorized" });
         const apps = await appsModel.find();
         return res.json(apps);
     }
