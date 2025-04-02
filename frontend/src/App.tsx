@@ -14,6 +14,7 @@ import AdminIndex from "./pages/Admin/Index";
 import PostEdit from "./pages/Admin/Posts/PostEdit";
 import Posts from "./pages/Posts";
 import Apps from "./pages/Admin/Apps/Apps";
+import User from "./pages/Admin/Users/Users";
 
 const router = createBrowserRouter([
   {
@@ -60,6 +61,11 @@ const router = createBrowserRouter([
       {
         path: "apps",
         element: <Apps />
+      },
+      // Users
+      {
+        path: "users",
+        element: <User />
       }
     ]
   },
