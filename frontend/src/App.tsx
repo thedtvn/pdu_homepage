@@ -15,6 +15,8 @@ import PostEdit from "./pages/Admin/Posts/PostEdit";
 import Posts from "./pages/Posts";
 import Apps from "./pages/Admin/Apps/Apps";
 import User from "./pages/Admin/Users/Users";
+import StudentLayout from "./components/StudentLayout";
+import HomeStudent from "./pages/Student/Home";
 
 const router = createBrowserRouter([
   {
@@ -66,6 +68,17 @@ const router = createBrowserRouter([
       {
         path: "users",
         element: <User />
+      }
+    ]
+  },
+  {
+    path: "/student",
+    element: <StudentLayout />,
+    errorElement: <RoutingError />,
+    children: [
+      {
+        path: "",
+        element: <HomeStudent />
       }
     ]
   },

@@ -55,15 +55,37 @@ export default class Auth extends RouteType {
     @Route("/register", "post")
     public async register(req: Request, res: Response) {
         if (req.auth?.role !== "admin") return res.status(403).json({ error: "Không có quyền truy cập" });
-        const { username, password, role } = req.body;
-        if (!username || !password) return res.status(400).json({ error: "Missing username or password" });
+        const { username, password, role, fullname } = req.body;
+        if (!username || !password || !fullname) return res.status(400).json({ error: "Missing username or password" });
         const role_config = role;
         const user = await userModel.findOne({ username, role: role_config });
         if (user) return res.status(400).json({ error: "User already exists" });
         const userId = randomUUID();
-        await userModel.create({ username, password, role, userId });
+        await userModel.create({ username, fullname, password, role, userId });
 
         return res.json({ success: true });
     }
+    
+    @Route("/users", "get")
+    public async getUsers(req: Request, res: Response) {
+        if (req.auth?.role !== "admin") return res.status(403).json({ error: "Không có quyền truy cập" });
+        const users = (await userModel.find({})).map((user) => {
+            return {
+                userId: user.userId,
+                username: user.username,
+                fullname: user.fullname,
+                role: user.role
+            };
+        });
+        return res.json(users);
+    }
 
+    @Route("/delete", "post")
+    public async deleteUser(req: Request, res: Response) {
+        if (req.auth?.role !== "admin") return res.status(403).json({ error: "Không có quyền truy cập" });
+        const { userId } = req.body;
+        if (!userId) return res.status(400).json({ error: "Thiếu userId" });
+        await userModel.deleteOne({ userId });
+        return res.json({ success: true });
+    }
 }

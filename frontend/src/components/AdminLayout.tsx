@@ -15,10 +15,7 @@ export default function AdminLayout() {
         },
         {
             name: "Quản lý người dùng",
-            children: [
-                { name: "Danh sách người dùng", url: "/admin/users" },
-                { name: "Thêm người dùng", url: "/admin/users/add" }
-            ]
+            url: "/admin/users"
         },
         {
             name: "Quản lý ứng dụng",
@@ -28,7 +25,7 @@ export default function AdminLayout() {
 
     return (
         <>
-            <UserProvider>
+            <UserProvider is_login={true} role="admin">
                 <Headers links={links} />
                 <Box minH={{ base: "95vh", md: "79vh" }}>
                 <Outlet />

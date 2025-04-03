@@ -4,17 +4,17 @@ import Footer from "./Footers";
 import { UserProvider } from "./UserProvider";
 import { Box } from "@chakra-ui/react";
 
-export default function DefaultLayout() {
+export default function StudentLayout() {
     let links: LinkObj[] = [
         {
-            name: "Danh sách bài viết",
-            url: "/posts"
+            name: "Lịch học",
+            url: ""
         }
     ];
 
     return (
         <>
-            <UserProvider>
+            <UserProvider is_login={true} role="sv">
                 <Headers links={links} />
                 <Box minH={{ base: "95vh", md: "79vh" }}>
                     <Outlet />
