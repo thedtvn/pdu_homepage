@@ -4,11 +4,13 @@ WORKDIR /app
 
 COPY . .
 
-RUN cd frontend && npm install && npm run build
-
-RUN cd backend && npm install
+WORKDIR /app/frontend
 
 RUN npm install && npm run build
+
+WORKDIR /app/backend
+
+RUN cd backend && npm install
 
 EXPOSE 3000
 
