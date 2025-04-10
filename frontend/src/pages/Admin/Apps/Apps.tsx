@@ -80,7 +80,7 @@ export default function Apps() {
                     app_id: appId
                 })
             }).then(response => response.json())
-                .then(data => {
+                .then(_ => {
                     alert("Xóa app thành công");
                     loadApps();
                 })
@@ -127,7 +127,7 @@ export default function Apps() {
                     </Dialog.Root>
                 </Flex>
                 <Flex flexDirection={"column"} gap={3}>
-                    {apps.length > 0 ? apps.map((app, index) => {
+                    {apps.length > 0 ? apps.map((app, _) => {
                         return (
                             <Flex bg={"white"} justifyContent={"space-between"} alignItems={"center"} p={3} m={3} borderRadius={10}>
                                 <Flex flexDirection={"column"} gap={2}>

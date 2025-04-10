@@ -1,5 +1,5 @@
 import { Box, Button, Flex, Input, Text, Image, IconButton, Checkbox } from "@chakra-ui/react";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { v4 as uuidv4 } from 'uuid';
 import MarkdownRender from "../../../components/MarkdownRender";
 import Editor from '@monaco-editor/react';

@@ -38,8 +38,16 @@ export default class App {
         this.app.use(express.json());
         await this.importRoutes();
         this.app.use('/cdn/', express.static('cdn'));
+        this.app.use(express.static('../frontend/dist'));
+        const indexPath = join(__dirname, "../../../frontend/dist/index.html");
+        this.app.get("/", (req, res) => {
+            res.sendFile(indexPath);
+        });
+        this.app.get("*", (req, res) => {
+            res.sendFile(indexPath);
+        });
         await Connect(process.env.MONGO_URL);
-        this.httpServer.listen(process.env.PORT, "0.0.0.0", () => {
+        this.httpServer.listen(Number(process.env.PORT), "0.0.0.0", () => {
             console.log(`[System] Server started at port ${process.env.PORT}!`);
         });
     }
