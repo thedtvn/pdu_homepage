@@ -123,10 +123,6 @@ export default function Home() {
                 <Button my={3} onClick={() => navigate("/posts")} bg={"#000080"} color={"#ffffff"} _hover={{
                     bg: "#030359"
                 }}>Xem thêm Về Tin Tức</Button>
-                <Flex direction={"column"} justifyContent={"center"} bg={"#f8e4b4"} w={"full"} mt={10} py={10}>
-                    <Text fontSize={"2xl"} textAlign={"center"} fontWeight={"bold"}>Thông điệp của Hiệu trưởng</Text>
-                    <Text textAlign={"center"}>ABCXYZ RONALDO CÁC BẠN HÃY</Text>
-                </Flex>
             </Flex>
            
         </Flex>
