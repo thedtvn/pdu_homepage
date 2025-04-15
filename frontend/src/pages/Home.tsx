@@ -1,5 +1,6 @@
-import { Box, Button, Flex, Image, Link, Text } from "@chakra-ui/react";
+import { Box, Button, Flex, Image, Link, Text, Grid, GridItem } from "@chakra-ui/react";
 import { useNavigate } from "react-router";
+import dayjs from 'dayjs';
 import "./../styles/index.css";
 import Carousel from 'react-bootstrap/Carousel';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -8,6 +9,7 @@ import { Post } from "./Post";
 
 export default function Home() {
     const navigate = useNavigate();
+
     const [posts, setPosts] = useState<Post[]>([]);
 
     useEffect(() => {
@@ -64,47 +66,67 @@ export default function Home() {
                     </Flex>
                 </Box>
             </Flex>
-            <Flex mt={5} w={"100%"} direction="column" justifyContent="center" alignItems="center">
-                <Text fontWeight={"bold"} fontSize={"x-large"} textAlign={"center"}>
-                    Thông tin tuyển sinh
+            <Flex mt={5} w={"100%"} direction="column" justifyContent="center" alignItems="center" bg={"#ffffff"}>
+                <Text fontWeight={"bold"} fontSize={"x-large"} textAlign={"center"} bg={"#900808"} w={"full"} color={"#ffffff"} py={8}>
+                    Bảng tin tức
                 </Text>
                 <Flex
                     maxW="100%"
-                    h={{ base: "auto", md: "30vh" }}
                     direction={{ base: "column", md: "row" }}
                     overflow="auto"
                     gap={4}
                     mt={4}
                     px={4}
                 >
-                    {
-                        posts.slice(0,6).map((post, index) => {
-                            return (
-                                <Box
-                                    key={index}
-                                    w={{ base: "100%", md: "30%" }}
-                                    p={4}
-                                    bg="gray.100"
-                                    mb={4}
-                                    borderRadius={5}
-                                    onClick={() => navigate(`/post/${post.slug}`)}
-                                >
-                                    <Text isTruncated>{post.title}</Text>
-                                    <Flex>Tags: {
-                                        post.tags.length ? post.tags.map(
-                                            tag => <Flex ml={2} key={tag} px={2} bg={"rgb(82, 82, 209)"} color={"white"} borderRadius={5}>{tag}</Flex>
-                                        ) : <Text ml={2}>No tags</Text>
-                                    }</Flex>
+                    <Flex direction={"column"} maxW={{
+                        base: "100%",
+                        md: "60%"
+                    }} border={"1px solid #1c1c1c"} px={5} borderRadius={8}>
+                        <Text fontSize={"2xl"} fontWeight={"bold"} p={5} pb={0}>Đề xuất</Text>
+                        <Grid templateColumns={['1fr', null, '1fr 1fr']} gap={4}> 
+                            {posts.slice(3, 7).map((item, index) => (
+                                <GridItem key={index}>
+                                    <Box bg="#ffffff" p={4} borderRadius={8} h="full" border={"1px solid #7d7d7d"} shadow={"lg"}  onClick={() => {
+                                        navigate(`/post/${item.slug}`)
+                                    }} cursor={"pointer"}>
+                                        <Flex direction={"column"} justifyContent={"space-between"} h="full">
+                                            <Text fontSize={"lg"} fontWeight={"bold"}>{item.title}</Text>
+                                            <Image  src={`/cdn/${item.files.find((file) => file.isDefault)?.filePath}`} aspectRatio={16/9} objectFit={"cover"} borderRadius={8}/>
+                                            <Text fontSize={"base"}>{dayjs(item.date).format('DD/MM/YYYY HH:mm:ss')}</Text>
+                                        </Flex>
+                                    </Box>
+                                </GridItem>
+                                
+                            ))}
+                        </Grid>
+                    </Flex>
+                    
+                    <Flex direction={"column"} maxW={{
+                        base: "100%",
+                        md: "60%"
+                    }} border={"1px solid #1c1c1c"} borderRadius={8}>
+                        <Text fontSize={"2xl"} fontWeight={"bold"} p={5} pb={0}>Bài viết khác</Text>
+                        <Flex direction={"column"} gap={3} maxH={885} overflowY={"auto"} px={5} pb={5}> 
+                            {posts.slice(0, 8).map((item, index) => (
+                                <Box bg="#ffffff" p={4} borderRadius={8} h="full" key={index}  border={"1px solid #7d7d7d"} shadow={"lg"} onClick={() => {
+                                    navigate(`/post/${item.slug}`)
+                                }} cursor={"pointer"}>  
+                                    <Flex direction={"column"} justifyContent={"space-between"} h="full">
+                                        <Text fontSize={"lg"} fontWeight={"bold"}>{item.title}</Text>
+                                        <Text fontSize={"base"}>{dayjs(item.date).format('DD/MM/YYYY HH:mm:ss')}</Text>
+                                    </Flex>
                                 </Box>
-                            )
-                        })
-                    }
+                            ))}
+                        </Flex>
+                    </Flex>
                 </Flex>
-                <Flex direction={"column"} justifyContent={"center"}>
+                <Button my={3} onClick={() => navigate("/posts")} bg={"#000080"} color={"#ffffff"} _hover={{
+                    bg: "#030359"
+                }}>Xem thêm Về Tin Tức</Button>
+                <Flex direction={"column"} justifyContent={"center"} bg={"#f8e4b4"} w={"full"} mt={10} py={10}>
                     <Text fontSize={"2xl"} textAlign={"center"} fontWeight={"bold"}>Thông điệp của Hiệu trưởng</Text>
                     <Text textAlign={"center"}>ABCXYZ RONALDO CÁC BẠN HÃY</Text>
                 </Flex>
-                <Button my={3} onClick={() => navigate("/posts")}>Xem thêm Về Thông Tin Tuyển Sinh</Button>
             </Flex>
            
         </Flex>
