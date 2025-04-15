@@ -1,4 +1,4 @@
-import { Box, Button, Flex, Image, Text } from "@chakra-ui/react";
+import { Box, Button, Flex, Image, Link, Text } from "@chakra-ui/react";
 import { useNavigate } from "react-router";
 import "./../styles/index.css";
 import Carousel from 'react-bootstrap/Carousel';
@@ -26,7 +26,7 @@ export default function Home() {
     ];
     // TODO: make Image slider
     return (
-        <Flex direction="column">
+        <Flex direction="column" gap={5}>
             <Carousel interval={10_000} as={Flex} w="100%" h="100%">
                 {images.map((image, index) => {
                     return (
@@ -45,6 +45,25 @@ export default function Home() {
                     )
                 })}
             </Carousel>
+            <Flex justifyContent={"center"} align={"center"} position={"relative"} pt={10}>
+                <Box bg={"#000080"} w={350} h={150} position={"absolute"} right={0} top={20} zIndex={-1}></Box>
+                <Box bg={"#000080"} w={350} h={150} position={"absolute"} left={0} bottom={5} zIndex={-1}></Box>
+                <Box bg={"#ffffff"} w={"container.xl"} p={5} pl={8} borderRadius={8} boxShadow={"lg"}>
+                    <Flex direction={{
+                        base: "column",
+                        md: "row"
+                    }}>
+                        <Flex direction="column" pt={5}>
+                            <Text fontSize={"3xl"} fontWeight={"bold"}>Vài nét về trường</Text>
+                            <Text pr={10}>
+                                Đại học Phương Đông là một trong những trường ĐH ngoài công lập đầu tiên trong hệ thống giáo dục đại học Việt Nam. Trường được thành lập theo Quyết định số 350/TTg ngày 8/7/1994 của Thủ tướng Chính phủ và chính thức đi vào hoạt động theo quyết định số 2282/GD-ĐT của Bộ Giáo dục và Đào tạo ngày 16/8/1994. Nhà trường tổ chức khai giảng khóa đầu tiên ngày 24/10/1994.
+                            </Text>
+                            <Link>Xem thêm</Link>
+                        </Flex>
+                        <Image src="/assets/truso1.jpeg" borderRadius={10}/>
+                    </Flex>
+                </Box>
+            </Flex>
             <Flex mt={5} w={"100%"} direction="column" justifyContent="center" alignItems="center">
                 <Text fontWeight={"bold"} fontSize={"x-large"} textAlign={"center"}>
                     Thông tin tuyển sinh
@@ -80,10 +99,14 @@ export default function Home() {
                             )
                         })
                     }
-
                 </Flex>
-                <Button mt={3} onClick={() => navigate("/pages")}>Xem thêm Về Thông Tin Tuyển Sinh</Button>
+                <Flex direction={"column"} justifyContent={"center"}>
+                    <Text fontSize={"2xl"} textAlign={"center"} fontWeight={"bold"}>Thông điệp của Hiệu trưởng</Text>
+                    <Text textAlign={"center"}>ABCXYZ RONALDO CÁC BẠN HÃY</Text>
+                </Flex>
+                <Button my={3} onClick={() => navigate("/posts")}>Xem thêm Về Thông Tin Tuyển Sinh</Button>
             </Flex>
+           
         </Flex>
     )
 }
