@@ -32,12 +32,25 @@ export default function Headers(props: { links: LinkObj[] }) {
         const MenuItems = {
             admin: [
                 {
+                    name: "Dashboard",
+                    link: "/admin"
+                },
+                {
+                    name: "Quản lí người dùng",
+                    link: "/admin/users"
+                },
+                {
                     name: "Quản lí bài viết",
                     link: "/admin/posts"
                 }
             ],
             gv: [],
-            sv: []
+            sv: [
+                {
+                    name: "Dashboard",
+                    link: "/student"
+                }
+            ]
         }
 
         return (

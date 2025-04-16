@@ -60,7 +60,6 @@ export default function Home() {
                             <Text pr={10}>
                                 Đại học Phương Đông là một trong những trường ĐH ngoài công lập đầu tiên trong hệ thống giáo dục đại học Việt Nam. Trường được thành lập theo Quyết định số 350/TTg ngày 8/7/1994 của Thủ tướng Chính phủ và chính thức đi vào hoạt động theo quyết định số 2282/GD-ĐT của Bộ Giáo dục và Đào tạo ngày 16/8/1994. Nhà trường tổ chức khai giảng khóa đầu tiên ngày 24/10/1994.
                             </Text>
-                            <Link>Xem thêm</Link>
                         </Flex>
                         <Image src="/assets/truso1.jpeg" borderRadius={10}/>
                     </Flex>

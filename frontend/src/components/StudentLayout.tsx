@@ -8,7 +8,19 @@ export default function StudentLayout() {
     let links: LinkObj[] = [
         {
             name: "Lịch học",
-            url: ""
+            url: "https://tracuudiem.phuongdong.edu.vn/thoikhoabieu"
+        },
+        {
+            name: "Tra cứu điểm thi",
+            url: "https://tracuudiem.phuongdong.edu.vn"
+        },
+        {
+            name: "Đóng học phí",
+            url: "https://hocphi.phuongdong.edu.vn/"
+        },
+        {
+            name: "Khảo sát ý kiến sinh viên",
+            url: "https://ks.phuongdong.edu.vn/"
         }
     ];
 
