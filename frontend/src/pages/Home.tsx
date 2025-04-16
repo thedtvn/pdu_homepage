@@ -1,4 +1,4 @@
-import { Box, Button, Flex, Image, Link, Text, Grid, GridItem } from "@chakra-ui/react";
+import { Box, Button, Flex, Image, Text, Grid, GridItem } from "@chakra-ui/react";
 import { useNavigate } from "react-router";
 import dayjs from 'dayjs';
 import "./../styles/index.css";
