@@ -30,3 +30,5 @@
     - `cd backend`  : di chuyển vào thư mục backend
     - `npm install` : cài đặt các thư viện cần thiết
     - `npm run dev` : chạy server
+
+Best thanks to ["Từ Thắng Phát"](https://github.com/phatdev12)
